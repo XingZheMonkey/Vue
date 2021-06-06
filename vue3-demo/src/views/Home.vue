@@ -28,10 +28,9 @@
             <ResourceDetails :currentResource="activeResource" v-else>
                 <template #buttonLink>
                     <router-link class="btn btn-outline-success" :to="{
-                        name: 'Detail',
-                        params: { id: activeResource?._id },
-                        }">详情
-                    </router-link>
+              name: 'Detail',
+              params: { id: activeResource?._id },
+            }">详情</router-link>
                 </template>
             </ResourceDetails>
         </div>
