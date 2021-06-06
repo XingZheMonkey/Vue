@@ -1,0 +1,31 @@
+{
+  "name": "sort_garbage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sort_garbage-install": "npm i --perfix sort_garbage",
+    "sort_garbage": "npm start --prefix sort_garbage",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server\" \"npm run sort_garbage\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "baidu-aip-sdk": "^2.4.4",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.2",
+    "express": "^4.17.1",
+    "express-static": "^1.2.6",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.1",
+    "nodemon": "^1.19.2",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "request": "^2.88.0",
+    "url": "^0.11.0"
+  }
+}
