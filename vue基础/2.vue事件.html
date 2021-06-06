@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue事件</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		#canvas{
+			width: 200px;
+			height: 200px;
+			background:#3DF0FE;
+			text-align: center;
+			line-height: 200px;
+			font-size: 30px;
+		}
+	</style>
+</head>
+<body>
+<!-- app-one是根容器 -->
+	<div id="app-one">
+		<h1>Events</h1>
+
+		<!-- @为v-on指令的缩写 -->
+
+		<button @click="add(1)">涨一岁</button>
+		<button v-on:click="subtract(1)">减一岁</button>
+
+
+		<button @dblclick="add(1)">涨一岁</button>
+		<button v-on:dblclick="subtract(1)">减一岁</button>
+		<p>my age is {{age}}</p>
+
+
+		<div id="canvas" v-on:mousemove="updateXY">
+			{{x}},{{y}}
+		</div>
+
+	</div>
+</body>
+</html>
+
+<script>
+ 	// 实例化vue对象
+	new Vue({
+  	  el: '#app-one',
+	  data: {
+	    age:30,
+	    x:0,
+	    y:0
+	  },
+	  methods:{
+	  	add:function(inc){
+	  		this.age+=inc;
+	  	},
+	  	subtract:function(dec){
+	  		this.age-=dec;
+	  	},
+	  	updateXY:function(e){
+	  		this.x=e.offsetX;
+	  		this.y=e.offsetY;
+	  	}
+	  }
+	});
+
+
+	
+</script>

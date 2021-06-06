@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>实例化多个vue对象</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		
+	</style>
+</head>
+<body>
+	<h1>实例化多个vue对象</h1>
+	
+	
+	<div id="vue-one">
+		<!-- greeting是组件内自定义的标签 -->
+		<greeting></greeting>
+	</div>
+	
+	<!-- vue对象2 -->
+	<div id="vue-two">
+		<greeting></greeting>
+	</div>
+</body>
+</html>
+
+<script>
+	// Vue.component注册的是全局组件，其他组件皆可以访问
+	Vue.component("greeting",{
+		// 模板内部有且只有一个根标签，即p是根标签，不允许出现同级
+		template:`
+			<p>
+				{{name}}:花果山水帘洞齐天大圣美猴王孙悟空
+				<button v-on:click="changeName">改名</button>
+			</p>
+		`,
+		data:function(){
+			// return一个对象使数据变为局部变量,不会因一个组件的操作而改变全部数据
+			return {
+				name:"孙悟空"
+			}
+		},
+		methods:{
+			changeName:function(){
+				this.name="齐天大圣";
+			}
+		}
+	})
+
+	new Vue({
+		el:"#vue-one",
+		
+	})
+	new Vue({
+		el:"#vue-two",
+		
+	})
+
+</script>

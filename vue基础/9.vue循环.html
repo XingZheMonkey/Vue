@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue循环</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		
+	</style>
+</head>
+<body>
+<!-- app-one是根容器 -->
+	<div id="app-one">
+		<h1>v-for指令</h1>
+
+		<ul>
+			<li v-for="character in characters">
+				{{character}}
+			</li>
+		</ul>
+		
+		<ul>
+			<li v-for="user in users">
+				{{user.name}} - {{user.age}}
+			</li>
+		</ul>
+		
+		<!-- template为虚拟模板，不会出现在DOM结构中 -->
+
+		<template v-for="(user,index) in users"> 
+		<!-- 使用for in 循环，index代表索引，user代表值 -->
+			<h3>{{index+1}} . {{user.name}}</h3>
+			<p>{{user.age}}</p>
+		</template>
+		
+		<!-- 嵌套循环 -->
+		<template v-for="user in users">
+			<div v-for="(val,key) in user">
+				<p>{{key}} - {{val}}</p>
+			</div>
+		</template>
+	</div>
+</body>
+</html>
+
+<script>
+ 	// 实例化vue对象
+	new Vue({
+  	  el: '#app-one',
+	  data: {
+	    characters:['Monkey','King','forever'],
+	    users:[
+	    	{name:'Henrry',age:19},
+	    	{name:'Emily',age:22},
+	    	{name:'Bucky',age:23}
+	    ]
+	  },
+	  methods:{
+	  	
+	  }
+	});
+
+
+	
+</script>

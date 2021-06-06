@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>watch</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+	</style>
+</head>
+<body>
+	<!-- 类型：{ [key: string]: string | Function | Object | Array } -->
+	<div id="vue-watch">
+		{{a}}
+		<br>
+		{{b}}
+		<br>
+		{{obj.name}}
+	</div>
+	
+</body>
+</html>
+
+<script>
+	var watchVue=new Vue({
+		el:"#vue-watch",
+		data(){
+			return {
+				a:1,
+				b:2,
+				obj:{
+					name:"monkey",
+					age:999
+				}
+			}
+		},
+
+	})
+	// 监听数据的改变
+	watchVue.$watch('a',function(){
+		alert("a已经发生了改变");
+		this.b=this.a+100;
+	})
+
+	document.onclick=function(){
+		watchVue.a=3333;
+		watchVue.obj.name="king";
+	}
+
+	// 深度监听
+	watchVue.$watch('obj',function(){
+		alert("name发生了改变")
+	},{
+		deep:true
+	})
+
+	
+</script>

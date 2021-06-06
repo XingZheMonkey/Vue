@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>filter过滤器</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+	</style>
+</head>
+<body>
+	
+	<div id="vue-filter">
+		{{dates | date}}
+		<br>
+		{{2 | auto}}
+	</div>
+	
+</body>
+</html>
+
+<script>
+	Vue.filter('date',function(input){
+		// 把时间戳转换为时间显示
+		var oDate=new Date(input);
+		return oDate.getFullYear()+'-'+(oDate.getMonth()+1)+"-"+oDate.getDate()+' '+oDate.getHours()+':'+oDate.getMinutes();
+	})
+
+	// 个位自动加0
+	Vue.filter('auto',function(data){
+		return data < 10?'0'+data:''+data;
+	})
+
+
+	new Vue({
+		el:"#vue-filter",
+		data(){
+			return {
+				dates:Date.now()
+			}
+		}
+	})
+
+
+	
+</script>

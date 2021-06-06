@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>动态组件</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		
+	</style>
+</head>
+<body>
+	
+	<div id="vue-one">
+		<!-- <input type="text" v-model="currentView" value="hello"> -->
+		<input ref="view" type="text" v-on:keyup.enter="changeView">
+
+		<component :is="currentView"></component>
+	</div>
+	
+</body>
+</html>
+
+<script>
+
+	new Vue({
+		el:"#vue-one",
+		data(){
+			return {
+				currentView:'hello'
+			}
+		},
+		components:{
+			'hello':{
+				template:`<h2>我是hello组件</h2>`
+			},
+			'world':{
+				template:`<h2>我是world组件</h2>`
+			}
+		},
+		methods:{
+			changeView:function(){
+				this.currentView=this.$refs.view.value;
+			}
+		}
+	})
+	
+</script>

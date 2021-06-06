@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue双向数据绑定</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		
+	</style>
+</head>
+<body>
+<!-- app-one是根容器 -->
+	<div id="app-one">
+		<h1>双向数据绑定  input / select / textarea</h1>
+		<label for="">姓名:</label>
+		<input type="text" v-model="name">  <!-- 利用vue提供的v-model实现双向数据绑定 -->
+		<span>{{name}}</span>
+		<br>
+		<br>
+		<label for="">年龄:</label>
+		<input ref="age" type="text" v-on:keyup="logAge">  <!-- 利用ref关联与事件和函数实现双向数据绑定 -->
+		<span>{{age}}</span>
+	</div>
+</body>
+</html>
+
+<script>
+ 	// 实例化vue对象
+	new Vue({
+  	  el: '#app-one',
+	  data: {
+	    name:"",
+	    age:""
+	  },
+	  methods:{
+	  	logAge:function(){
+	  		// 通过ref属性获取标签中的值
+	  		this.age=this.$refs.age.value;
+	  	}
+	  }
+	});
+
+
+	
+</script>

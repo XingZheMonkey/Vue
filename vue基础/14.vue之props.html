@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>props</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+	</style>
+</head>
+<body>
+	
+	<div id="vue-one">
+		<button class="ui button">5555555</button>
+		<ui-button text="复制"></ui-button>
+		<ui-button text="粘贴"></ui-button>
+		<ui-button text="剪贴"></ui-button>
+	</div>
+	
+</body>
+</html>
+
+<script>
+
+	Vue.component('ui-button',{
+		template:'<button class="ui primary button">{{text}}</button>',
+		props:['text']
+	})
+	new Vue({
+		el:"#vue-one",
+	})
+	
+</script>

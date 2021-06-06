@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>directive自定义拖拽</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		#vue-directive{
+			width: 100%;
+			position: relative;
+		}
+		.one{
+			width: 200px;
+			height: 200px;
+			background: green;
+			position: absolute;
+			left: 0;
+		}
+		.two{
+			width: 200px;
+			height: 200px;
+			background: red;
+			float: right;
+			position: absolute;
+			right: 0;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="vue-directive">
+		<div class="one" v-drag></div>
+		<div class="two"></div>
+	</div>
+	
+</body>
+</html>
+
+<script>
+	Vue.directive('drag',{
+		bind(el,binding,vnode){
+			el.onmousedown=function(e){
+				var disX=e.clientX-el.offsetLeft;
+				var disY=e.clientY-el.offsetTop;
+
+				document.onmousemove=function(e){
+					var l=e.clientX-disX;
+					var t=e.clientY-disY;
+					el.style.left=l+'px';
+					el.style.top=t+'px';
+				}
+			}
+
+			el.onmouseup=function(){
+				document.onmousemove=null;
+			}
+		}
+	})
+	new Vue({
+		el:"#vue-directive",
+		data(){
+			return {
+				dates:Date.now()
+			}
+		}
+	})
+
+
+	
+</script>

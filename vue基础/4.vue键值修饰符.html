@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue键值修饰符</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="vue-app">
+		<h1>vue键值修饰符</h1>
+		<label for="">姓名:</label>
+		<!-- 键盘修饰符enter键 -->
+		<input type="text" v-on:keyup.enter="logName">
+
+		<label for="">年龄:</label>
+		<!-- 键盘事件串联 -->
+		<input type="text" v-on:keyup.ctrl.enter="logAge">
+
+		<!-- 为了在必要的情况下支持旧浏览器，Vue 提供了绝大多数常用的按键码的别名：
+
+			.enter
+			.tab
+			.delete (捕获“删除”和“退格”键)
+			.esc
+			.space
+			.up
+			.down
+			.left
+			.right
+		 -->
+	</div>
+</body>
+</html>
+
+<script>
+	new Vue({
+		el:"#vue-app",
+		data:{
+
+		},
+		methods:{
+			logName:function(){
+				console.log("您正在输入姓名");
+			},
+			logAge:function(){
+				console.log("您正在输入年龄");
+			}
+		}
+	})
+</script>

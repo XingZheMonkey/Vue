@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue基础实战</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		#bag{
+			width: 200px;
+			height: 500px;
+			margin:0 auto;
+			background:url(img/1.jpg) center no-repeat;
+			background-size: 80%;
+		}
+		#bag.burst{
+			background-image: url(img/2.jpg);
+		}
+		#bag-health{
+			width: 200px;
+			border:2px solid #000;
+			margin:0 auto 20px auto;
+		}
+		#bag-health div{
+			height: 20px;
+			background: crimson;
+		}
+		#controls{
+			width: 200px;
+			margin:0 auto;
+		}
+		#controls button{
+			margin-left: 20px;
+		}
+	</style>
+</head>
+<body>
+<!-- app-one是根容器 -->
+	<div id="app-one">
+
+		<!-- 图片 -->
+
+		<!-- 绑定css，使其根据ended的true和false显示隐藏css，以此实现背景图片切换 -->
+		<div id="bag" v-bind:class="{burst:ended}">
+			
+		</div>
+		
+
+		<!-- 进度情况 -->
+		<div id="bag-health">
+			<!-- 绑定样式，使进度条的长度等于health -->
+			<div v-bind:style="{width:health+'%'}"></div>
+		</div>
+
+
+		<!-- 控制按钮 -->
+		<div id="controls">
+			<!-- 利用ended控制点击按钮的显示隐藏 -->
+			<button v-on:click="punch" v-show="ended">疯狂点击</button>
+			<button v-on:click="restart">重新开始</button>
+		</div>
+
+
+	</div>
+</body>
+</html>
+
+<script>
+ 	// 实例化vue对象
+	new Vue({
+  	  el: '#app-one',
+	  data: {
+	  	health:100,
+	  	ended:true
+	  },
+	  methods:{
+	  	punch:function(){
+	  		this.health-=10;
+
+	  		if (this.health<=0) {
+	  			this.ended=false;
+	  		}
+	  	},
+	  	restart:function(){
+	  		this.health=100;
+	  		this.ended=true;
+	  	}
+	  }
+	});
+
+
+	
+</script>

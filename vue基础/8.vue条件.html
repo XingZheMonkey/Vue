@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue条件</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		
+	</style>
+</head>
+<body>
+<!-- app-one是根容器 -->
+	<div id="app-one">
+		<h1>v-if指令</h1>
+		<button v-on:click="error=!error">Toggle Error</button>
+		<button v-on:click="success=!success">Toggle Success</button>
+		<!-- <p v-if="error">网络连接错误</p>
+		<p v-else-if="success">网络连接成功</p> -->
+		
+
+		<p v-show="error">网络连接错误</p>
+		<p v-show="success">网络连接成功</p>
+
+
+		<!-- 注意: v-if 情况下，如果布尔值为false, p标签不会出现在dom结构中
+		
+				   v-show 情况下，p标签一直存在于dom结构中，控制显示隐藏的display:none
+		 -->
+	</div>
+</body>
+</html>
+
+<script>
+ 	// 实例化vue对象
+	new Vue({
+  	  el: '#app-one',
+	  data: {
+	    error:"false",
+	    success:"true"
+	  },
+	  methods:{
+	  	
+	  }
+	});
+
+
+	
+</script>

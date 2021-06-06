@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue基础</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!-- app-one是根容器 -->
+	<div id="app-one">
+		<h1>{{greet('night')}}</h1>
+		<p>name:{{name}}</p>
+		<p>job:{{job}}</p>
+		<!-- : 为 v-bind: 的缩写 -->
+		<a v-bind:href="baidu">百度</a>
+		<input type="text" v-bind:value="job">
+		<p v-bind:html="text"></p>
+
+		<!-- 使用v-bind绑定数据，可以绑定href，value，html等属性的值 -->
+	</div>
+</body>
+</html>
+
+<script>
+ 	// 实例化vue对象
+	new Vue({
+  	  el: '#app-one',
+	  data: {
+	    name:"Monkey",
+	    job:"web开发",
+	    baidu:"http://www.baidu.com",
+	    text:"<a href='http://www.baidu.com'></a>"
+	  },
+	  methods:{
+	  	greet:function(time){
+	  		return 'good '+time+" "+this.name+"!";
+	  	}
+	  }
+	});
+
+
+	// el: element 需要获取的元素，一定是html中的根容器元素
+	// data: 用于数据存储
+	// methods: 用于存储各种方法
+</script>

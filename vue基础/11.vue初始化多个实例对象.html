@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>实例化多个vue对象</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		button{
+			width: 100px;
+			height: 40px;
+			background:#90E4FB;
+		}
+	</style>
+</head>
+<body>
+	<h1>实例化多个vue对象</h1>
+	
+	<!-- vue对象1 -->
+	<div id="vue-one">
+		<h2>{{title}}</h2>
+		<p>{{greet}}</p>
+	</div>
+	
+	<!-- vue对象2 -->
+	<div id="vue-two">
+		<h2>{{title}}</h2>
+		<p>{{greet}}</p>
+		<button @click="changeTitle()">changeTitle</button>
+	</div>
+</body>
+</html>
+
+<script>
+	var one=new Vue({
+		el:"#vue-one",
+		data:{
+			title:"app-one的内容"
+		},
+		methods:{
+
+		},
+		computed:{
+			greet:function(){
+				return "hello App One"
+			}
+		}
+	})
+	var two=new Vue({
+		el:"#vue-two",
+		data:{
+			title:"app-two的内容"
+		},
+		methods:{
+			// 对象之间互相访问修改
+			changeTitle:function(){
+				one.title="被修改"
+			}
+		},
+		computed:{
+			greet:function(){
+				return "hello App Two"
+			}
+		}
+	})
+
+	two.title="app-two的title已经发生改变"
+</script>

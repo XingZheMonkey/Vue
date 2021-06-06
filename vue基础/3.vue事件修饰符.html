@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue事件</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		#canvas{
+			width: 400px;
+			height: 400px;
+			background:#3DF0FE;
+			text-align: center;
+			line-height: 400px;
+			font-size: 20px;
+		}
+	</style>
+</head>
+<body>
+<!-- app-one是根容器 -->
+	<div id="app-one">
+		<h1>Events</h1>
+
+		<!-- @为v-on指令的缩写 -->
+
+		<button @click.once="add(1)">涨一岁</button>   <!-- 事件修饰符once可以使事件只执行一次 -->
+		<button v-on:click="subtract(1)">减一岁</button>
+
+
+		<button @dblclick="add(1)">涨一岁</button>
+		<button v-on:dblclick="subtract(1)">减一岁</button>
+		<p>my age is {{age}}</p>
+
+
+		<div id="canvas" v-on:mousemove="updateXY">
+			{{x}},{{y}} ---
+			<!-- <span v-on:mousemove="stopMoving">stopMoving</span> -->	<!-- 通过js事件阻止冒泡 -->
+
+			<span v-on:mousemove.stop="">stopMoving</span>  <!-- 通过stop事件修饰符阻止冒泡 -->
+		</div>
+		
+		<!-- 事件修饰符prevent使提交事件不再重载页面，同时事件修饰符可以串联 -->
+		<a v-on:click.prevent.stop="alert()" href="http://www.baidu.com">百度</a>
+	</div>
+</body>
+</html>
+
+<script>
+ 	// 实例化vue对象
+	new Vue({
+  	  el: '#app-one',
+	  data: {
+	    age:30,
+	    x:0,
+	    y:0
+	  },
+	  methods:{
+	  	add:function(inc){
+	  		this.age+=inc;
+	  	},
+	  	subtract:function(dec){
+	  		this.age-=dec;
+	  	},
+	  	updateXY:function(e){
+	  		this.x=e.offsetX;
+	  		this.y=e.offsetY;
+	  	},
+	  	stopMoving:function(e){
+	  		e.stopPropagation();
+	  	},
+	  	alert:function(){
+	  		alert("hello girl");
+	  	}
+	  }
+	});
+
+
+	
+</script>
