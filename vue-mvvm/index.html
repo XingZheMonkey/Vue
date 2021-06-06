@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .highlight{
+            color: aqua;
+        }
+    </style>
+    <script src="./untils.js"></script>
+    <script src="./watcher.js"></script>
+    <script src="./mvvm.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="school.name">
+        {{school.name}}
+        <div>{{school.name}}</div>
+        <div>{{school.age}}</div>
+        <span class="all">全部</span>
+        <ul>
+            <li data-select="0">1</li>
+            <li data-select="0">2</li>
+            <li data-select="0">3</li>
+            <li data-select="0">4</li>
+        </ul>
+        <button  v-on:click="change">点击</button>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data() {
+            return {
+                school:{
+                    name:"monkey",
+                    age:"99"
+                },
+            }
+        },
+        methods: {
+            change(){
+                this.school.age = "9999999999999999999999999999999999999999";
+            }
+        },
+    })
+
+
+    setTimeout(function () { 
+        vm.$data.school.name = "kingk"
+    },3000)
+</script>
+
+
+
+<script>
+    
+    var sumClick = 0;
+    var sumLi = document.getElementsByTagName("li").length;
+
+    function change(node){
+        node.addEventListener("click",function(){
+            let select = parseInt(this.getAttribute("data-select"))
+
+            if(select){
+                this.classList.remove("highlight")
+                this.setAttribute("data-select",0);
+            }else{
+                this.classList.add("highlight")
+                this.setAttribute("data-select",1)
+            }
+
+            if(node.getAttribute("data-select") == 1){
+                sumClick++;
+            }else{
+                sumClick--;
+            }
+            if(sumClick == sumLi){
+                document.getElementsByClassName("all")[0].classList.add("highlight")
+            }else{
+                document.getElementsByClassName("all")[0].classList.remove("highlight")
+            }
+            
+        })
+    }   
+
+    
+    for(var i = 0; i< sumLi; i++){
+        change(document.getElementsByTagName("li")[i]);
+    }
+
+</script>
