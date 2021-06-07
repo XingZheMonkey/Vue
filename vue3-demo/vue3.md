@@ -435,12 +435,6 @@ const toDetail = (id)=>{
 
 6. 移除了实例上的 $on $off 与 $once ；移除了 filter 和 内联模板等
 
-## vite
-
-1. vite 打包速度更快，不需要每次运行都重新打包，只需将 vue 文件解析为 js，直接放在浏览器资源中
-
-2. 将 vue 文件解析为 js 文件的工具是 vue 中提供的 SFC 功能，SFC会将VUE文件解析为 AST 树，再将AST树进行解析；对于 template文件使用 vue 中的 complier-dom 解析
-
 
 ## Vue 3.0 在编译方面有哪些优化？
 
@@ -455,4 +449,12 @@ const toDetail = (id)=>{
 5. 缓存事件处理函数cacheHandler,避免每次触发都要重新生成全新的function去更新之前的函数
 
 6. tree shaking 通过摇树优化核心库体积,减少不必要的代码量
+
+
+## vite
+
+1. vite 打包速度更快，不需要每次运行都重新打包，只需将 vue 文件解析为 js，直接放在浏览器资源中
+
+2. 将 vue 文件解析为 js 文件的工具是 vue 中提供的 SFC 功能，SFC会将VUE文件解析为 AST 树，再将AST树进行解析；对于 template文件使用 vue 中的 complier-dom 解析
+
 
