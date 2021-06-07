@@ -49,7 +49,11 @@
 
 3. 如果ref中传入对象，会被自动转为 reactive； ref({})
 
+4. toRefs
 
+    + reactive是用来定义更加复杂的数据类型，但是定义后里面的变量取出来就不在是响应式Ref对象数据了，所以需要用 toRefs 展开
+
+    + toRefs 可以将一个响应型对象(reactive object) 转化为普通对象(plain object)，同时又把该对象中的每一个属性转化成对应的响应式属性(ref)。说白了就是放弃该对象(Object)本身的响应式特性(reactivity)，转而给对象里的属性赋予响应式特性(reactivity)
 
 ## shallowRef 与 shallowReactive
 
