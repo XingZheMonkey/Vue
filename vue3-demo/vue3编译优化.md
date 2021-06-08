@@ -65,9 +65,8 @@
 
    + PatchFlags.FULL_PROPS - 当有动态 name 的 props 时使用
       ```js
-      reateVNode('p', { [refKey.value]: 'val' }, 'hello', PatchFlags.FULL_PROPS)
+      createVNode('p', { [refKey.value]: 'val' }, 'hello', PatchFlags.FULL_PROPS)
       ```
-
 
 
 
