@@ -32,6 +32,27 @@
 
 # Vue 3.0 编译优化
 
+## vue2.0 与 vue3.0 编译对比
+
+1. Vue2.[x] 中的 Compile 过程会是这样：
+
+   + parse 编译模板生成原始 AST
+   
+   + optimize 优化原始 AST，标记 AST Element 为静态根节点或静态节点
+
+   + generate 根据优化后的 AST，生成可执行代码，例如 _c、_l 之类的
+
+2. 在「Vue3」中，整体的 Compile 过程仍然是三个阶段，但是不同于「Vue2.x」的是，第二个阶段换成了正常编译器都会存在的阶段 transform
+
+   + baseParse 词法解析，生成 AST
+
+   + transfrom 遍历AST，对每一个 AST Element 进行转化
+
+   + 根据转化后的 AST 生成对应的 可执行函数
+
+   + transformElement：transformElement 是一个所有 AST Element 都会被执行的一个 plugin，它的核心是为 AST Element 生成最基础的 codegen属性。例如标识出对应 patchFlag，从而为生成 VNode 提供依据，例如 dynamicChildren
+
+
 ## Block Tree 与 patchFlag
 
 1. 问题分析
@@ -65,8 +86,9 @@
 
    + PatchFlags.FULL_PROPS - 当有动态 name 的 props 时使用
       ```js
-      createVNode('p', { [refKey.value]: 'val' }, 'hello', PatchFlags.FULL_PROPS)
+      reateVNode('p', { [refKey.value]: 'val' }, 'hello', PatchFlags.FULL_PROPS)
       ```
+
 
 
 
