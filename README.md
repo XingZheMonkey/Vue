@@ -8,6 +8,10 @@
 
 >>> 原始 ui 库：Carbon UI
 
+> 项目重构
+
+>> 项目描述：沿用原有项目的思路，将所有 UI 库实现的内容重构为 手写组件封装，实现一个后台管理系统，用来记录 学习内容，类似博客系统
+
 ## 主要技术
 
 1. 前端 ： vue / vuex / vue-router / less / webpack / axios / vuex-persistedstate
