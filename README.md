@@ -4,7 +4,7 @@
 
 > 项目原型：IBM Innovation 项目 digital game；
 
->> 原始需求：Github第三方登录，管理员权限可编辑问题与答案；普通用户可参与答题；
+>> 原始需求：Github第三方登录，管理员权限可编辑问题与答案；普通用户可参与答题互动，用于学习交流 Agile
 
 >>> 原始 ui 库：Carbon UI
 
