@@ -1,5 +1,13 @@
 # 项目简介
 
+## 项目背景
+
+> 项目原型：IBM Innovation 项目 digital game；
+
+>> 原始需求：Github第三方登录，管理员权限可编辑问题与答案；普通用户可参与答题；
+
+>>> 原始 ui 库：Carbon UI
+
 ## 主要技术
 
 1. 前端 ： vue / vuex / vue-router / less / webpack / axios / vuex-persistedstate
