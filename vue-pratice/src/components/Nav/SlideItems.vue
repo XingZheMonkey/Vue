@@ -8,9 +8,9 @@
       >
         {{ $t(slideItems.meta.title) }}
         
-        <span class="icon-arrow">
-          <svg-icon v-if="isFolder" v-show="!isOpen" iconClass="arrowBottom"></svg-icon>
-          <svg-icon v-if="isFolder" v-show="isOpen" iconClass="arrowTop"></svg-icon>
+        <span class="icon-arrow" v-if="isFolder">
+            <svg-icon v-show="!isOpen" iconClass="arrowBottom"></svg-icon>
+            <svg-icon v-show="isOpen" iconClass="arrowTop"></svg-icon>
         </span>
       </div>
     </router-link>
