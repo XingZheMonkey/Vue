@@ -2,7 +2,7 @@
   <div class="slideBar">
     <ul v-for="slideItem in treeData" :key="slideItem.title">
       <SildeItems
-        :active="activeItem"
+        :active="activeIndex"
         :slideItems="slideItem"
         @changeActive="change($event)"
       ></SildeItems>
@@ -33,11 +33,6 @@ export default {
       activeIndex: "",
       treeData: [],
     };
-  },
-  computed: {
-    activeItem() {
-      return this.activeIndex;
-    },
   },
   watch: {
     // 监听路由变化，改变路径值时，页面没有重新渲染，activeIndex不会重新获取
