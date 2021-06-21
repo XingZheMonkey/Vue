@@ -50,18 +50,41 @@ export default {
     return {
       isLogin: false,
       languageOption: [
-        { name: this.$t('header.china'), key: 1, value: "zh" },
-        { name: this.$t('header.english'), key: 2, value: "en" },
+        { name: "", key: 1, value: "zh" },
+        { name: "", key: 2, value: "en" },
       ],
       themeOption: [
-        { name: this.$t('header.white'), key: 3, value: "whiteTheme" },
-        { name: this.$t('header.black'), key: 4, value: "blackTheme" },
+        { name: "", key: 3, value: "whiteTheme" },
+        { name: "", key: 4, value: "blackTheme" },
       ],
       userOption: [
-        { name: this.$t('header.login'), key: 5, value: "login" },
+        { name: "", key: 5, value: "login" },
         { name: "用户中心", key: 6, value: "userCenter" },
-      ],
+      ]
     };
+  },
+  // watch:{
+    // '$i18n.locale'(){
+    //   console.log(this.i18n)
+    // }
+    // '$store.state':{
+    //   handler(){
+    //     console.log(this.$i18n)
+    //   },
+    //   deep:true
+    // }
+  // },
+  watch:{
+    '$store.state':{
+      handler(){
+        this.languageOption[0].name = this.$t('header.china');
+        this.languageOption[1].name = this.$t('header.english');
+        this.themeOption[0].name = this.$t('header.white');
+        this.themeOption[1].name = this.$t('header.black');
+        this.userOption[0].name = this.$t('header.login');
+      },
+      deep:true
+    }
   },
   methods: {
     changeTheme(value) {
