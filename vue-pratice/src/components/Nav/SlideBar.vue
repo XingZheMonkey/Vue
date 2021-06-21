@@ -37,7 +37,7 @@ export default {
   watch: {
     // 监听路由变化，改变路径值时，页面没有重新渲染，activeIndex不会重新获取
     $route() {
-      this.activeIndex = this.$router.currentRoute.path;
+      this.activeIndex = this.$route.path;
     },
   },
   methods: {
@@ -91,7 +91,7 @@ export default {
     });
 
     // 获取当前路由页面，并使其为高亮项
-    this.activeIndex = this.$router.currentRoute.path;
+    this.activeIndex = this.$route.path;
   },
 };
 </script>
