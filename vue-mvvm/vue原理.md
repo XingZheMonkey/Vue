@@ -90,11 +90,6 @@ with(this){
 
 3. patch(vnode,newVnode) 执行 diff 算法，对比新老虚拟 dom
 
-## 异步渲染
-
-1. 汇总 data 的修改，一次性更新视图
-
-2. 减少 dom 操作，提高性能
 
 ### 异步渲染原理分析
 
@@ -223,7 +218,7 @@ with(this){
 
 2. 异步更新流程
 
-    + 数据被改变时，触发 **watcher.update**
+    + 数据被改变时，触发 数据被改变时，触发 **setter**，**setter** 内部执行 **Dep.notify**, 执行所有已订阅的 **watcher** 的 **update** 方法
 
         ```js
         // 源码位置：src/core/observer/watcher.js
@@ -239,7 +234,7 @@ with(this){
         }
         ```
 
-    + 调用 **queueWatcher**，将 watcher 加入队列
+    + **update** 方法中会调用  **queueWatcher**，将 watcher 加入队列
 
     + 将 **flushSchedulerQueue** 作为回调传入 nextTick 异步执行
 
@@ -346,11 +341,11 @@ with(this){
 
 #### 异步更新整体流程梳理
 
- 1. 数据被改变时，触发 **setter**，进而触发 **watcher.update**
+ 1. 数据被改变时，触发 **setter**，**setter** 内部执行 **Dep.notify**, 执行所有已订阅的 **watcher** 的 **update** 方法
 
- 2. 调用 **queueWatcher**，将 watcher 加入队列
+ 2. **update** 方法中会调用 **queueWatcher**，将 **watcher** 加入队列
 
- 3. 声明一个 **flushSchedulerQueue**，用来将刚刚加入 queue 的 watcher 逐个 run 更新
+ 3. 声明一个 **flushSchedulerQueue**，用来将刚刚加入 queue 的 watcher 逐个 run 更新(**watcher.update**)
 
  4. 将 **flushSchedulerQueue** 作为回调函数传入 **nexttick** 异步执行
 
@@ -361,7 +356,6 @@ with(this){
  7. **timerFunc** 内部创建会一个微任务或宏任务，将 执行 callbacks 的方法放入任务队列中，等待所有的 nextTick 同步执行完成后，再用特定方法去执行 callbacks 内的回调
 
  8. 若用户触发了 **nexttick**, 则会在用户触发的 nexttick执行完毕后再执行回调，但用户触发的 nexttick 在 **callbacks** 里是放在 **flushSchedulerQueue之后**的，因此可以获得最新DOM
- 
 
 ## 响应式原理
 
@@ -404,7 +398,5 @@ with(this){
     + patch的核心就是diff算法，diff算法通过同层的树节点进行比较而非对树进行逐层搜索遍历的方式，所以时间复杂度只有o(n)，比较高效
 
 6. 数据发生变化的时候，通过watcher观察者来知道数据发生变化，这时候调用更新渲染函数来打补丁
-
-
 
 
