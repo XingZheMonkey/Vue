@@ -72,6 +72,7 @@ with(this){
 }
 ```
 
+
 ```js
 let code = generate(root)
 let render = `with(this){return ${code}}`
@@ -97,6 +98,11 @@ let renderFn = new Function(render)
 
 3. patch(vnode,newVnode) 执行 diff 算法，对比新老虚拟 dom
 
+## 异步渲染
+
+1. 汇总 data 的修改，一次性更新视图
+
+2. 减少 dom 操作，提高性能
 
 ### 异步渲染原理分析
 
@@ -364,7 +370,6 @@ let renderFn = new Function(render)
 
  8. 若用户触发了 **nexttick**, 则会在用户触发的 nexttick执行完毕后再执行回调，但用户触发的 nexttick 在 **callbacks** 里是放在 **flushSchedulerQueue之后**的，因此可以获得最新DOM
 
-
 ## 组件渲染和更新过程
 
 1. 渲染组件时，会通过 vue.extend 方法构建子组件的构造函数，并进行实例化，最终手动调用$mount()进行挂载。更新组件时会调用 patchNode
@@ -412,6 +417,14 @@ let renderFn = new Function(render)
     + patch的核心就是diff算法，diff算法通过同层的树节点进行比较而非对树进行逐层搜索遍历的方式，所以时间复杂度只有o(n)，比较高效
 
 6. 数据发生变化的时候，通过watcher观察者来知道数据发生变化，这时候调用更新渲染函数来打补丁
+
+
+
+
+
+
+
+
 
 
 
@@ -499,6 +512,8 @@ function createComputedGetter (key) {
 
 
 
+
+
 ## v-if 与 v-show 底层
 
 > v-if 会用 三元表达式确认是否需要渲染
@@ -540,6 +555,4 @@ with(this){
 
     + 如果不相等则 对将 startIndex 与 endIndex 进行对比, endIndex 与 startIndex 对比
 
-    + 对比完 索引依次向前向后赋值
-
-
+    + 对比完 索引依次向前向后赋值s
