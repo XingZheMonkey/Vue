@@ -2,7 +2,7 @@
 
 ## 虚拟Dom生成
 
->  template编译成 AST 语法树 -> 再转换为 render 函数 最终返回一个VNode
+>  template编译成 AST 语法树 -> 再 调用 codegen 转换为 render 函数 最终返回一个VNode
 
 ```js
 
@@ -70,6 +70,13 @@ with(this){
         }
     )
 }
+```
+
+```js
+let code = generate(root)
+let render = `with(this){return ${code}}`
+
+let renderFn = new Function(render)
 ```
 
 ## 初次渲染的过程
