@@ -555,4 +555,4 @@ with(this){
 
     + 如果不相等则 对将 startIndex 与 endIndex 进行对比, endIndex 与 startIndex 对比
 
-    + 对比完 索引依次向前向后赋值s
+    + 对比完 索引依次向前向后赋值
