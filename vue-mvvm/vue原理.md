@@ -364,6 +364,13 @@ let renderFn = new Function(render)
 
  8. 若用户触发了 **nexttick**, 则会在用户触发的 nexttick执行完毕后再执行回调，但用户触发的 nexttick 在 **callbacks** 里是放在 **flushSchedulerQueue之后**的，因此可以获得最新DOM
 
+
+## 组件渲染和更新过程
+
+1. 渲染组件时，会通过 vue.extend 方法构建子组件的构造函数，并进行实例化，最终手动调用$mount()进行挂载。更新组件时会调用 patchNode
+
+2. 组件的 data 必须是一个函数就是因为组件的创建是对构造函数的实例化；当一个组件被多次复用时，会创建多个实例，这些实例用的是同一个构造函数，如果data是一个对象的话，所有组件就都共享了同一个对象
+
 ## 响应式原理
 
 1. 通过递归遍历，把vue实例中data里面定义的数据，用defineReactive（Object.defineProperty）重新定义
@@ -405,5 +412,134 @@ let renderFn = new Function(render)
     + patch的核心就是diff算法，diff算法通过同层的树节点进行比较而非对树进行逐层搜索遍历的方式，所以时间复杂度只有o(n)，比较高效
 
 6. 数据发生变化的时候，通过watcher观察者来知道数据发生变化，这时候调用更新渲染函数来打补丁
+
+
+
+## computed 细节
+
+> lazy 用于标识 computed
+
+```js
+const computedWatcherOptions = { lazy: true }
+
+function initComputed (vm: Component, computed: Object) {
+  // $flow-disable-line
+  const watchers = vm._computedWatchers = Object.create(null)
+  // computed properties are just getters during SSR
+  const isSSR = isServerRendering()
+
+  for (const key in computed) {
+    const userDef = computed[key]
+    const getter = typeof userDef === 'function' ? userDef : userDef.get
+
+    if (!isSSR) {
+      // create internal watcher for the computed property.
+      watchers[key] = new Watcher(
+        vm,
+        getter || noop,
+        noop,
+        computedWatcherOptions
+      )
+    }
+```
+
+
+```js
+ // computed不会立即执行，只有使用的时候才会执行
+ this.value = this.lazy
+      ? undefined
+      : this.get()
+```
+
+> dirty 用于标识是否需要更新
+
+```js
+    
+    // watcher构造函数
+    
+    update () {
+        /* istanbul ignore else */
+        if (this.lazy) {
+            this.dirty = true   // 数据发生改变，将 dirty 设置为 true，让其更新
+        } else if (this.sync) {  // 同步 watcher
+            this.run()
+        } else {
+            queueWatcher(this) // this 为当前的实例 watcher
+        }
+    }
+```
+
+```js
+// state.js
+function createComputedGetter (key) {
+  return function computedGetter () {
+    const watcher = this._computedWatchers && this._computedWatchers[key]
+    if (watcher) {
+      if (watcher.dirty) { // dirty为true的时候 让计算属性更新
+        watcher.evaluate()
+      }
+      if (Dep.target) {
+        watcher.depend()
+      }
+      return watcher.value
+    }
+  }
+}
+```
+
+
+```js
+    evaluate () {
+        this.value = this.get()  // 更新数据
+        this.dirty = false  // 更新之后将dirty设置为false
+    }
+```
+
+> watch 可以设置deep，设置deep后会对属性进行递归处理；但computed不需要，因为computed会在模板中使用，会对其进行 JOSN.srtingify 处理
+
+
+
+## v-if 与 v-show 底层
+
+> v-if 会用 三元表达式确认是否需要渲染
+
+> v-show 会形成一个指令，在bind函数中将 target 的 display设置为none
+
+>> platforms/web/runtime/directives/show.js
+
+```js
+with(this){
+     return _c('div',
+        [(flag == 'a') ? 
+            _c('p',[_v("A")]) : 
+            _c('p',[_v("B")])
+        ]
+     )
+ }
+```
+
+## v-if 与 v-show 底层
+
+> v-for 的优先级高
+
+```js
+with(this){
+    return _l((3),function(i)=>{
+        return (false) ? _c("div",[_v('hello')]) : _e();
+    })
+}
+```
+
+## vue中的 diff 算法
+
+1. 同级对比
+
+2. 双指针算法
+
+    + 先对比新老节点的 startIndex，再对比新老节点的 endIndex 
+
+    + 如果不相等则 对将 startIndex 与 endIndex 进行对比, endIndex 与 startIndex 对比
+
+    + 对比完 索引依次向前向后赋值
 
 
