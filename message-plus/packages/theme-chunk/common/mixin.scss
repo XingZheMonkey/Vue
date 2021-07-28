@@ -1,0 +1,41 @@
+@import "./var.scss";
+// z-message
+@mixin b($block) {
+    // !global 将局部变量声明为全局变量
+    $B:$namespace + '-' + $block !global;
+
+    // 通过 #{} 插值语句可以在选择器或属性名中使用变量
+    .#{$B}{
+        @content;
+    }
+}
+
+@mixin when($state) {
+    // @at-root 跳出父级选择器 & 父级选择器
+    @at-root{
+        // z-message.is-xxx
+        &.#{$state-prefix + $state}{
+            @content;
+        }
+    }
+}
+
+@mixin m($modifier) {
+    @at-root{
+        // z-message--primary
+        #{& + $modifier-separator + $modifier}{
+            @content;
+        }
+    }
+}
+
+@mixin e($element) {
+    @at-root{
+        & {
+            // .z-message__
+            #{'.' + $B + $element-separator + $element}{
+                @content;
+            }
+        }
+    }
+}
